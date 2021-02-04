@@ -1,0 +1,5 @@
+rm -r log.blockMesh
+rm -r log.checkMesh
+rm -r constant/polyMesh
+rm -r log.setFields
+rm -r log.multiphaseEulerFoam

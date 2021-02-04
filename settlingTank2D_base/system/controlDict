@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     multiphaseEulerFoam; // Solves pseudo-transient problems using PIMPLE algorithm
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         120;
+
+deltaT          1e-5; // the Min Time Step to run the Simulation
+
+writeControl    adjustableRunTime; // adjustableRunTime (keeps the folders nice) OR runTime (ensure stability)
+
+writeInterval   1;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable no;
+
+adjustTimeStep  yes; // This allows the deltaT to change to optimize for faster calculations
+
+maxCo           1; // Max CFL 1 is recommended for ensuring relatively accurate results
+
+maxDeltaT	0.01; // Sets the maximum timeStep to meet max Co 
+
+// ************************************************************************* //

@@ -1,0 +1,2 @@
+multiphaseEulerFoam | tee log.multiphaseEulerFoam
+

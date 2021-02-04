@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Settings are Default to most Commercial Solvers
+
+ddtSchemes
+{
+    default         CrankNicolson 0;
+}
+
+gradSchemes
+{
+    default         cellLimited Gauss linear 1;
+    // grad(p)         Gauss linear;
+    grad(U)         cellLimited Gauss linear 1;
+}
+
+divSchemes
+{
+    default         none;
+    
+    "div\(phi,alpha.*\)"            Gauss vanLeer;
+    "div\(phir,alpha.*\)"           Gauss vanLeer;
+    "div\(alphaRhoPhi.*,U.*\)"      Gauss limitedLinearV 1;
+    "div\(phi.*,U.*\)"              Gauss limitedLinearV 1;
+    "div\(alphaPhi.*,p\)"           Gauss limitedLinear 1;
+    
+    /*
+     // Original Settings for singlePhase 
+     div(phi,U)      Gauss linearUpwindV grad(U);
+     div(phi,alpha.particles) Gauss linear;
+     div((nuEff*dev2(T(grad(U))))) Gauss linear;
+    */
+    
+    /*
+    // Other Settings - Turbulent flow?
+    "div\(alphaRhoPhi.*,(h|e).*\)"  Gauss limitedLinear 1; // h or e item
+    "div\(alphaRhoPhi.*,K.*\)"      Gauss limitedLinear 1; // K item
+    */
+    
+    // Following are required for each phase it seems
+    div((((alpha.water*thermo:rho.water)*nuEff.water)*dev2(T(grad(U.water))))) Gauss linear;
+    div((((alpha.particles*thermo:rho.particles)*nuEff.particles)*dev2(T(grad(U.particles))))) Gauss linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear limited 1;
+}
+
+interpolationSchemes
+{
+    default         linear;
+    //interpolate(HbyA) linear;
+}
+
+snGradSchemes
+{
+    default         limited 1;
+}
+// ************************************************************************* //
