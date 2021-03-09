@@ -1,0 +1,5 @@
+blockMesh | tee log.blockMesh
+checkMesh | tee log.checkMesh
+setFields | tee log.setFields 
+
+touch fluidBed.OpenFOAM

@@ -1,0 +1,6 @@
+rm -r log.blockMesh
+rm -r log.checkMesh
+rm -r log.setFields
+rm -r constant/polyMesh
+rm -r log.multiphaseEulerFoam
+rm -r fluidBed.OpenFOAM
